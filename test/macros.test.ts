@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
-import { textMacro } from '../src/functions/macro';
+import { textMacro } from '../src/functions/macros';
 
-describe('test macro function', () => {
+describe('test macros function', () => {
   it('should running correctly', () => {
       const text = 'test mog-render-service.textMacro [[ $title ]] [[#blur($title)]]';
       const record = {

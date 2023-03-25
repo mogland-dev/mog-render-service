@@ -33,44 +33,60 @@ export function textMacro(text: string, record: Variables) {
       return variables[value as keyof Variables] || "";
     } else if (type === "#") {
       if (value.startsWith("(") && value.endsWith(")")) {
-        const functionName = value.slice(0, value.indexOf("("));
-        const argList = value.slice(value.indexOf("(") + 1, -1).split(",");
+        const [functionName, ..._args] = value.split("(");
         const func = functions[functionName as keyof Functions] as any;
         if (func) {
-          const processedArgs = argList.map((arg) => {
-            return arg.trim().startsWith("$")
-              ? variables[arg.slice(1) as keyof Variables]
-              : arg;
+          const values = value.replace(/\$(\w+)/g, (_, key) => {
+            return `${key}`;
           });
-          const code = `return ${functionName}(${processedArgs.join(",")})`;
-          return safeEval(code, { ...variables }, { timeout: 1000 });
+          return safeEval(
+            `return ${values}`,
+            { ...variables, ...functions },
+            { timeout: 1000 }
+          );
         }
         try {
-          const values = value.slice(1, -1).replace(/\$(\w+)/g, (_, key) => {
-            return `return ${key}`;
-          })
+          const values = value
+            .replace(/\$(\w+)/g, (_, key) => {
+              return `${key}`;
+            })
+            .replace(/^\(|\)$/g, "");
           return safeEval(values, { ...variables }, { timeout: 1000 });
         } catch (error) {
           console.error(`Error evaluating JS expression: ${value}`);
           return match;
         }
       } else {
-        const [functionName, ...args] = value.split("(");
-        const func = functions[functionName as keyof Functions];
+        const [functionName, ..._args] = value.split("(");
+        const func = functions[functionName as keyof Functions] as any;
         if (func) {
-          const argList = args.join("(").slice(0, -1).split(",");
-          const processedArgs = argList.map((arg) => {
-            if (arg.trim().startsWith("$")) {
-              return variables[arg.slice(1) as keyof Variables];
-            } else {
-              return arg.trim();
-            }
+          const values = value.replace(/\$(\w+)/g, (_, key) => {
+            return `${key}`;
           });
-          // eslint-disable-next-line prefer-spread
-          return func.apply(null, processedArgs);
+          return safeEval(
+            `return ${values}`,
+            { ...variables, ...functions },
+            { timeout: 1000 }
+          );
         }
       }
     }
     return match;
   });
 }
+
+// const record: Variables = {
+//   title: "My First Blog Post",
+//   created: "2020-01-01T00:00:00.000Z",
+//   slug: "my-first-blog-post",
+//   nid: "1",
+//   _id: "abc123",
+// };
+
+// const text = `
+// [[ #blur($title) ]] was created on [[ #dayjs($created).format("MMMMDD, YYYY") ]]. The slug is [[ $slug ]] and the nid is [[ $nid ]].
+// [[ #($slug.slice(0, 5)) ]]
+// if _id is abc123, then it will return "yes" [[ #($_id === "abc123" ? "yes" : "no") ]]
+// `;
+
+// console.log(textMacro(text, record));

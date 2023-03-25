@@ -1,4 +1,4 @@
-import { textMacro } from "../src/functions/macro";
+import { textMacro } from "../src/functions/macros";
 import { textMacro as mxTextMacro } from "./mx";
 
 const Benchmark = require("benchmark");
