@@ -1,8 +1,24 @@
-# mog-render-service
+# @mogland-dev/mog-render-service
+
+Markdown & Djot Render Service for Mog Core
+
+## Features
+
+- [x] Render Markdown to HTML
+- [x] Render Djot to HTML
+- [ ] ShortCode Support
+- [ ] Text Macro Support
+
+## Events
+
+You can refer to the content of [events.yaml](./events.yaml), create a new `events.yaml` file in the Mog Core running directory, and then add the corresponding events in it.
+
+- `render.markdown.to.html` - Render Markdown to HTML
+- `render.djot.to.html` - Render Djot to HTML
 
 ## License
 
-此项目 AGPLv3 授权开源，使用此项目进行的二次创作或者衍生项目也必须开源。
+This project is licensed under the AGPLv3 license, and the secondary creation or derivative project using this project must also be open source.
 
 ## Author
 

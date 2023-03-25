@@ -1,0 +1,7 @@
+render:
+  - path: /markdown
+    method: post
+    handler: render.markdown.to.html
+  - path: /djot
+    method: post
+    handler: render.djot.to.html
