@@ -1,3 +1,5 @@
+import { safeEval } from "../utils/safe-eval.util";
+
 interface Variables {
   title: string;
   created: string;
@@ -47,7 +49,7 @@ export function textMacro(text: string, record: Variables) {
           const values = value.slice(1, -1).replace(/\$(\w+)/g, (_, key) => {
             return `\`${String(variables[key as keyof Variables])}\``;
           })
-          return eval(values).toString();
+          return safeEval(values);
         } catch (error) {
           console.error(`Error evaluating JS expression: ${value}`);
           return match;
