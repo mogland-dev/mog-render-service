@@ -35,21 +35,21 @@ export function textMacro(text: string, record: Variables) {
       if (value.startsWith("(") && value.endsWith(")")) {
         const functionName = value.slice(0, value.indexOf("("));
         const argList = value.slice(value.indexOf("(") + 1, -1).split(",");
-        const func = functions[functionName as keyof Functions];
+        const func = functions[functionName as keyof Functions] as any;
         if (func) {
           const processedArgs = argList.map((arg) => {
             return arg.trim().startsWith("$")
               ? variables[arg.slice(1) as keyof Variables]
               : arg;
           });
-          // eslint-disable-next-line prefer-spread
-          return func.apply(null, processedArgs);
+          const code = `return ${functionName}(${processedArgs.join(",")})`;
+          return safeEval(code, { ...variables }, { timeout: 1000 });
         }
         try {
           const values = value.slice(1, -1).replace(/\$(\w+)/g, (_, key) => {
-            return `\`${String(variables[key as keyof Variables])}\``;
+            return `return ${key}`;
           })
-          return safeEval(values);
+          return safeEval(values, { ...variables }, { timeout: 1000 });
         } catch (error) {
           console.error(`Error evaluating JS expression: ${value}`);
           return match;
