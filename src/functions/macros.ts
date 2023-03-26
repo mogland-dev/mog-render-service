@@ -12,21 +12,16 @@ interface Functions {
   [key: string]: (...args: any[]) => any;
 }
 
+const builtInFunctions: Functions = {
+  dayjs: require("dayjs"),
+  blur: (text: string) => {
+    return `<span class="text blur">${text}</span>`;
+  },
+};
+
 export function textMacro(text: string, record: Variables) {
-  const variables: Variables = {
-    title: record.title,
-    created: record.created,
-    slug: record.slug,
-    nid: record.nid,
-    _id: record._id,
-  };
-  const functions: Functions = {
-    dayjs: require("dayjs"),
-    blur: (text: string) => {
-      // implementation of blur function
-      return `<span class="text blur">${text}</span>`;
-    },
-  };
+  const variables: Variables = record;
+
   const regex = /\[\[ ?(\$|#)(.*?) ?\]\]/g;
   return text.replace(regex, (match: string, type: string, value: string) => {
     if (type === "$") {
@@ -34,14 +29,14 @@ export function textMacro(text: string, record: Variables) {
     } else if (type === "#") {
       if (value.startsWith("(") && value.endsWith(")")) {
         const [functionName, ..._args] = value.split("(");
-        const func = functions[functionName as keyof Functions] as any;
+        const func = builtInFunctions[functionName as keyof Functions] as any;
         if (func) {
           const values = value.replace(/\$(\w+)/g, (_, key) => {
             return `${key}`;
           });
           return safeEval(
             `return ${values}`,
-            { ...variables, ...functions },
+            { ...variables, ...builtInFunctions },
             { timeout: 1000 }
           );
         }
@@ -58,14 +53,14 @@ export function textMacro(text: string, record: Variables) {
         }
       } else {
         const [functionName, ..._args] = value.split("(");
-        const func = functions[functionName as keyof Functions] as any;
+        const func = builtInFunctions[functionName as keyof Functions] as any;
         if (func) {
           const values = value.replace(/\$(\w+)/g, (_, key) => {
             return `${key}`;
           });
           return safeEval(
             `return ${values}`,
-            { ...variables, ...functions },
+            { ...variables, ...builtInFunctions },
             { timeout: 1000 }
           );
         }

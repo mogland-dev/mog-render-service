@@ -13,8 +13,7 @@ const record = {
 };
 
 const text = `
-[[ #blur($title) ]] was created on [[ #dayjs($created).format("MMMMDD, YYYY") ]]. The slug is [[ $slug ]] and the nid is [[ $nid ]].
-[[ #($slug.slice(0, 5)) ]]
+[[ $title ]]. The slug is [[ $slug ]] and the nid is [[ $nid ]].
 if _id is abc123, then it will return "yes" [[ #($_id === "abc123" ? "yes" : "no") ]]
 `;
 
@@ -30,6 +29,6 @@ suite
   })
   .on("complete", function () {
     // @ts-ignore
-    console.log(`Fastest is ${this.filter("fastest").map("name")}`);
+    console.log(`Fastest is ${this.filter("fastest").map("name")}. ${(this[0].hz / this[1].hz).toFixed(2)}x faster`);
   })
   .run({ async: true });
