@@ -59,8 +59,6 @@ You can call a function using `#functionName(args)`. The function name can conta
 
 #### `#dayjs`
 
-> **Info**: WIP.
-
 The `dayjs` module provides a set of functions for working with dates and times.
 
 Syntax: `#dayjs(args)`
@@ -69,13 +67,13 @@ Example: `[[ #dayjs($created).format("MMMMDD, YYYY") ]]`
 
 ### Built-in functions
 
-#### `#if`
+#### `#case`
 
-The `if` function takes a condition and two values. If the condition is true, it returns the first value. Otherwise, it returns the second value.
+The `case` function takes a condition and two values. If the condition is true, it returns the first value. Otherwise, it returns the second value.
 
-Syntax: `#if(condition, trueValue, falseValue)`
+Syntax: `#case(condition, trueValue, falseValue)`
 
-Example: `[[ #if(isPublished, "Published", "Not published") ]]`
+Example: `[[ #case(isPublished, "Published", "Not published") ]]`
 
 #### `#join`
 
@@ -84,6 +82,30 @@ The `join` function takes an array and a separator and returns a string that con
 Syntax: `#join(array, separator)`
 
 Example: `[[ #join(tags, ", ") ]]`
+
+#### `#concat`
+
+The `concat` function takes two or more strings and returns a string that concatenates the strings.
+
+Syntax: `#concat(string1, string2, ...)`
+
+Example: `[[ #concat("Hello", " ", "World") ]]`
+
+#### `#replace`
+
+The `replace` function takes a string, a search value, and a replacement value and returns a new string with all occurrences of the search value replaced by the replacement value.
+
+Syntax: `#replace(string, searchValue, replacementValue)`
+
+Example: `[[ #replace($title, " ", "-") ]]`
+
+#### `#slice`
+
+The `slice` function takes a string and a start index and returns a new string that contains the characters of the original string starting from the start index.
+
+Syntax: `#slice(string, startIndex)`
+
+Example: `[[ #slice($title, 0, 5) ]]`
 
 ### Custom functions
 
