@@ -1,6 +1,6 @@
 {
   "name": "mog-render-service",
-  "version": "0.0.0",
+  "version": "0.0.1-alpha.0",
   "description": "Markdown & Djot Render Service for Mog Core",
   "author": "wibus-wee <wibus@qq.com>",
   "license": "AGPLv3",
