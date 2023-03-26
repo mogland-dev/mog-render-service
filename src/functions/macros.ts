@@ -82,20 +82,3 @@ export function textMacro(text: string, record: Variables) {
     return match;
   });
 }
-
-const record: Variables = {
-  title: "My First Blog Post",
-  created: "2020-01-01T00:00:00.000Z",
-  slug: "my-first-blog-post",
-  nid: "1",
-  _id: "abc123",
-};
-
-const text = `
-[[ #blur($title) ]] was created on [[ #dayjs($created).format("MMMMDD, YYYY") ]]. The slug is [[ $slug ]] and the nid is [[ $nid ]].
-[[ #($slug.slice(0, 5)) ]]
-if _id is abc123, then it will return "yes" [[ #($_id === "abc123" ? "yes" : "no") ]]
-[[ #join(["a", "b", "c"], ", ") ]]
-`;
-
-console.log(textMacro(text, record));

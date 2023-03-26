@@ -7,10 +7,11 @@ specifiers:
   '@innei/eslint-config-ts': 0.9.8
   '@types/marked': ^4.0.8
   '@types/node': 18.15.8
+  '@vercel/ncc': ^0.36.1
   '@vitest/ui': ^0.29.7
   benchmark: ^2.1.4
   bumpp: 8.2.1
-  chalk: ^5.2.0
+  chalk: 4.1.2
   consola: ^2.15.3
   dayjs: ^1.11.7
   eslint: 8.36.0
@@ -30,7 +31,7 @@ specifiers:
 
 dependencies:
   '@djot/djot': 0.2.2
-  chalk: 5.2.0
+  chalk: 4.1.2
   consola: 2.15.3
   dayjs: 1.11.7
   marked: 4.3.0
@@ -43,6 +44,7 @@ devDependencies:
   '@innei/eslint-config-ts': 0.9.8_typescript@4.9.5
   '@types/marked': 4.0.8
   '@types/node': 18.15.8
+  '@vercel/ncc': 0.36.1
   '@vitest/ui': 0.29.7
   benchmark: 2.1.4
   bumpp: 8.2.1
@@ -1047,6 +1049,11 @@ packages:
       eslint-visitor-keys: 3.3.0
     dev: true
 
+  /@vercel/ncc/0.36.1:
+    resolution: {integrity: sha512-S4cL7Taa9yb5qbv+6wLgiKVZ03Qfkc4jGRuiUQMQ8HGBD5pcNRnHeYM33zBvJE4/zJGjJJ8GScB+WmTsn9mORw==}
+    hasBin: true
+    dev: true
+
   /@vitest/ui/0.29.7:
     resolution: {integrity: sha512-KeOztcAldlFU5i8DKCQcmGrih1dVowurZy/9iPz5JyQdPJzej+nW1nI4nYvc4ZmUtA8+IAe9uViqnU7IXc1RNw==}
     dependencies:
@@ -1120,7 +1127,6 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       color-convert: 2.0.1
-    dev: true
 
   /ansi-styles/6.1.0:
     resolution: {integrity: sha512-VbqNsoz55SYGczauuup0MFUyXNQviSpFTj1RQtFzmQLk18qbVSpTFFGMT293rmDaQuKCT6InmbuEyUne4mTuxQ==}
@@ -1288,11 +1294,11 @@ packages:
     dependencies:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
-    dev: true
 
   /chalk/5.2.0:
     resolution: {integrity: sha512-ree3Gqw/nazQAPuJJEy+avdl7QfZMcUvmHIKgEZkGL+xOBzRvup5Hxo6LHuMceSxOabuJLJm5Yp/92R9eMmMvA==}
     engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
+    dev: true
 
   /check-error/1.0.2:
     resolution: {integrity: sha512-BrgHpW9NURQgzoNyjfq0Wu6VFO6D7IZEmJNdtgNqpzGG8RuNFHt2jQxWlAs4HMe119chBnv+34syEZtc6IhLtA==}
@@ -1342,7 +1348,6 @@ packages:
     engines: {node: '>=7.0.0'}
     dependencies:
       color-name: 1.1.4
-    dev: true
 
   /color-name/1.1.3:
     resolution: {integrity: sha512-72fSenhMw2HZMTVHeCA9KCmpEIbzWiQsjN+BHcBbS9vr1mtt+vJjPdksIBNUmKAW8TFUDPJK5SUU3QhE9NEXDw==}
@@ -1350,7 +1355,6 @@ packages:
 
   /color-name/1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
-    dev: true
 
   /colorette/2.0.19:
     resolution: {integrity: sha512-3tlv/dIP7FWvj3BsbHrGLJ6l/oKh1O3TcgBqMn+yyCagOxc23fyzDS6HypQbgxWbkpDnf52p1LuR4eWDQ/K9WQ==}
@@ -2758,7 +2762,6 @@ packages:
   /has-flag/4.0.0:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
     engines: {node: '>=8'}
-    dev: true
 
   /has-property-descriptors/1.0.0:
     resolution: {integrity: sha512-62DVLZGoiEBDHQyqG4w9xCuZ7eJEwNmJRWw2VY84Oedb7WFcA27fiEVe8oUQx9hAUJ4ekurquucTGwsyO1XGdQ==}
@@ -3898,7 +3901,6 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       has-flag: 4.0.0
-    dev: true
 
   /supports-preserve-symlinks-flag/1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}

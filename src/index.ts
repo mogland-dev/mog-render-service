@@ -3,7 +3,6 @@ import consola from "consola";
 import { createClient } from "redis";
 import { HANDLERS, PATTERNS } from "./constants";
 import { generateResponse, parseEventDataFromGateway } from "./utils";
-
 const service = chalk.blue("[Render Service]");
 
 console.clear();

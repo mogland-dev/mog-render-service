@@ -52,7 +52,8 @@
     "release": "bumpp && npm publish",
     "start": "esno src/index.ts",
     "test": "vitest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "bundle": "ncc build dist/index.cjs -o dist/compiled"
   },
   "devDependencies": {
     "@innei-util/eslint-config-ts": "0.8.2",
@@ -60,6 +61,7 @@
     "@innei/eslint-config-ts": "0.9.8",
     "@types/marked": "^4.0.8",
     "@types/node": "18.15.8",
+    "@vercel/ncc": "^0.36.1",
     "@vitest/ui": "^0.29.7",
     "benchmark": "^2.1.4",
     "bumpp": "8.2.1",
@@ -77,7 +79,7 @@
   },
   "dependencies": {
     "@djot/djot": "^0.2.2",
-    "chalk": "^5.2.0",
+    "chalk": "4.1.2",
     "consola": "^2.15.3",
     "dayjs": "^1.11.7",
     "marked": "^4.3.0",
