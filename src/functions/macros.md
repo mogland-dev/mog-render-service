@@ -107,24 +107,6 @@ Syntax: `#slice(string, startIndex)`
 
 Example: `[[ #slice($title, 0, 5) ]]`
 
-### Custom functions
-
-You can define your own functions by adding them to the functions object in the context object.
-
-Example:
-
-```js
-const context = {
-  functions: {
-    double: (value) => value * 2
-  }
-};
-```
-
-Syntax: `#functionName(args)`
-
-Example: `[[ #double($value) ]]`
-
 ## JavaScript expressions
 
 You can also use JavaScript expressions in your text macros by enclosing them in parentheses.
