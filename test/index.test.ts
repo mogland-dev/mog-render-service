@@ -5,6 +5,10 @@ import { markdownToHtml } from '../src/handlers/markdownToHtml'
 const _ = {
   id: 'test',
   data: {
+    query: {},
+    params: {
+      "*": 'test',
+    },
     body: "# H1 \n **bold**",
   },
   pattern: '',

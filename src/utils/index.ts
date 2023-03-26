@@ -1,3 +1,4 @@
+import { HandlerData } from "../types/handler";
 
 /**
  * isEmitter 判断是否为 event-based 模式
@@ -24,7 +25,7 @@ export function isEmitter(pattern: string) {
  */
 export function parseEventDataFromGateway(message: string): {
   id: string;
-  data: string;
+  data: HandlerData;
   pattern: string;
   isEmitter: boolean;
 } {
@@ -35,6 +36,28 @@ export function parseEventDataFromGateway(message: string): {
     pattern: JSON.stringify(mes.pattern),
     isEmitter: isEmitter(mes.pattern),
   }
+}
+
+/**
+ * 生成发送至 NestJS Gateway 的信息
+ * @param id 事件ID
+ * @param data 事件数据
+ * @param pattern 模式
+ * @param isEmitter 是否为 event-based 模式
+ */
+
+export function generateEventDataToGateway(
+  id: string,
+  data: string | object,
+  pattern: string,
+  isEmitter: boolean
+) {
+  return JSON.stringify({
+    id,
+    data,
+    pattern: isEmitter ? pattern : JSON.parse(pattern),
+    isEmitter,
+  })
 }
 
 /**

@@ -23,16 +23,31 @@ Object.keys(PATTERNS).forEach((key) => {
     async (message) => {
       const { id, data, pattern, isEmitter } =
         parseEventDataFromGateway(message);
-      consola.info(`${service} ${chalk.blue(`Received ${pattern} +++ << ${id}`)}`)
+      consola.info(
+        `${service} ${chalk.blue(`Received ${pattern} +++ << ${id}`)}`
+      );
       const handler = HANDLERS[key](id, data, pattern, isEmitter);
-      const returns = generateResponse(id, handler);
+      const returns = handler ? generateResponse(id, handler) : "";
       if (isEmitter) {
-        publisher.publish(pattern, returns).then(() => {
-          consola.info(`${service} Sent ${pattern} --- ${id}`)
-        })
+        if (returns)
+          publisher.publish(pattern, returns).then(() => {
+            consola.info(`${service} Sent ${pattern} --- ${id}`);
+          });
+        else {
+          consola.info(`${service} Sent ${pattern} --- ${id}`);
+        }
       } else {
-        publisher.publish(`${pattern}.reply`, returns);
-        consola.info(`${service} ${chalk.blue(`Sent ${pattern}.reply --- >> ${id}`)}`)
+        if (returns)
+          publisher.publish(`${pattern}.reply`, returns).then(() => {
+            consola.info(
+              `${service} ${chalk.blue(`Sent ${pattern}.reply --- >> ${id}`)}`
+            );
+          });
+        else {
+          consola.info(
+            `${service} ${chalk.blue(`Sent ${pattern}.reply --- >> ${id}`)}`
+          );
+        }
       }
     }
   );
