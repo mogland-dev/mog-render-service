@@ -5,3 +5,6 @@ render:
   - path: /djot
     method: post
     handler: render.djot.to.html
+  - path: /
+    method: get
+    handler: render.from.server

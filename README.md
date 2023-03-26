@@ -6,15 +6,23 @@ Markdown & Djot Render Service for Mog Core
 
 - [x] Render Markdown to HTML
 - [x] Render Djot to HTML
-- [ ] ShortCode Support
-- [ ] Text Macro Support
+- [ ] Short Codes Support
+- [x] [Text Macros Support](./src/functions/macros.md)
 
 ## Events
 
 You can refer to the content of [events.yaml](./events.yaml), create a new `events.yaml` file in the Mog Core running directory, and then add the corresponding events in it.
 
 - `render.markdown.to.html` - Render Markdown to HTML
+  - Method: `POST`
+  - Body: YOUR MARKDOWN TEXT
 - `render.djot.to.html` - Render Djot to HTML
+  - Method: `POST`
+  - Body: YOUR DJOT TEXT
+- `render.from.server` - Render Text from Server
+  - Method: `GET`
+  - Query: `id` - The ID of the post or page
+  - Query: `type` - The type of the post or page, `post` or `page`
 
 ## License
 
