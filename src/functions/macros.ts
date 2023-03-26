@@ -1,11 +1,7 @@
 import { safeEval } from "../utils/safe-eval.util";
 
 interface Variables {
-  title: string;
-  created: string;
-  slug: string;
-  nid: string;
-  _id: string;
+  [key: string]: any;
 }
 
 interface Functions {

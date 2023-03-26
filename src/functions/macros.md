@@ -49,7 +49,7 @@ Example: `[[ $title ]]` will be replaced with the value of article's `title`.
   - `slug` - The slug of the category of the post or page.
   - `description` - The description of the category of the post or page.
   - `icon` - The icon of the category of the post or page.
-- `...$fields` - The fields of the post or page.
+- `$fields` - The fields of the post or page.
 
 ## Functions
 
