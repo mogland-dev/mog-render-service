@@ -1,12 +1,8 @@
 import { parse, renderHTML } from "@djot/djot";
+import { Handler } from "../types/handler";
 
-export function djotToHtml(
-  _id: string,
-  data: any,
-  _pattern: string,
-  _isEmitter: boolean,
-) {
-  const djotContent = data.body;
+export const djotToHtml: Handler = (_id, data, _pattern, _isEmitter) => {
+  const djotContent = typeof data === "string" ? data : data.body;
   const html = renderHTML(parse(djotContent));
   return html;
 }
