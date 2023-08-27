@@ -28,7 +28,7 @@ export const textFromServer: Handler = (
     const mes = JSON.parse(message)
     if (!mes.err) {
       let res = ''
-      res = textMacro(mes.response.text, {
+      res = await textMacro(mes.response.text, {
         title: mes.response.title,
         slug: mes.response.slug,
         created: mes.response.created,
