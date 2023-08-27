@@ -29,6 +29,6 @@ suite
   })
   .on("complete", function () {
     // @ts-ignore
-    console.log(`Speed test: ${this.filter("fastest").map("name").join(" > ")}, ${(this[0].hz / this[1].hz).toFixed(2)}x faster`);
+    console.log(`Fastest is ${this.filter("fastest").map("name")}. ${(this[0].hz / this[1].hz).toFixed(2)}x faster`);
   })
   .run({ async: true });
