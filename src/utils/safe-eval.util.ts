@@ -1,25 +1,32 @@
-import vm2 from 'vm2'
+import { Isolate } from "isolated-vm";
 
-export function safeEval(code: string, context = {}, options?: vm2.VMOptions) {
-  const sandbox = {
-    global: {},
-  }
+export async function safeEval(
+  code: string,
+  context: { [key: string]: any } = {}
+) {
+  const isolate = new Isolate({ memoryLimit: 128 });
 
-  code = `((() => { ${code} })())`
+  const sandbox: {
+    [key: string]: any;
+  } = {};
+
+  code = `((() => { ${code} })())`;
+
   if (context) {
     Object.keys(context).forEach((key) => {
-      // @ts-ignore
-      sandbox[key] = context[key]
-    })
+      sandbox[key] = context[key];
+    });
   }
 
-  const VM = new vm2.VM({
-    timeout: 60_0000,
-    sandbox,
+  const contextGlobal = await isolate.createContext();
+  Object.keys(sandbox).forEach((key) => {
+    contextGlobal.global.set(key, sandbox[key]);
+  });
 
-    eval: false,
-    ...options,
-  })
+  const script = await isolate.compileScript(code);
+  const result = await script.run(contextGlobal, );
 
-  return VM.run(code)
+  isolate.dispose();
+
+  return result;
 }

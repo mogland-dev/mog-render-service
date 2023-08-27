@@ -1,4 +1,6 @@
 import { safeEval } from "../utils/safe-eval.util";
+import { replaceAsync } from "../utils/replace-async.util";
+
 
 interface Variables {
   [key: string]: any;
@@ -30,11 +32,12 @@ const builtInFunctions: Functions = {
   },
 };
 
-export function textMacro(text: string, record: Variables) {
+export async function textMacro(text: string, record: Variables) {
   const variables: Variables = record;
 
   const regex = /\[\[ ?(\$|#)(.*?) ?\]\]/g;
-  return text.replace(regex, (match: string, type: string, value: string) => {
+  return await replaceAsync(text, regex, async (match, type, value) => {
+  // return text.replace(regex, async (match: string, type: string, value: string) => {
     if (type === "$") {
       return variables[value as keyof Variables] || "";
     } else if (type === "#") {
@@ -42,22 +45,21 @@ export function textMacro(text: string, record: Variables) {
         const [functionName, ..._args] = value.split("(");
         const func = builtInFunctions[functionName as keyof Functions] as any;
         if (func) {
-          const values = value.replace(/\$(\w+)/g, (_, key) => {
+          const values = value.replace(/\$(\w+)/g, (_: any, key: any) => {
             return `${key}`;
           });
-          return safeEval(
+          return await safeEval(
             `return ${values}`,
-            { ...variables, ...builtInFunctions },
-            { timeout: 1000 }
+            { ...variables, ...builtInFunctions }
           );
         }
         try {
           const values = value
-            .replace(/\$(\w+)/g, (_, key) => {
+            .replace(/\$(\w+)/g, (_: any, key: any) => {
               return `${key}`;
             })
             .replace(/^\(|\)$/g, "");
-          return safeEval(values, { ...variables }, { timeout: 1000 });
+          return await safeEval(values, { ...variables });
         } catch (error) {
           console.error(`Error evaluating JS expression: ${value}`);
           return match;
@@ -66,15 +68,12 @@ export function textMacro(text: string, record: Variables) {
         const [functionName, ..._args] = value.split("(");
         const func = builtInFunctions[functionName as keyof Functions] as any;
         if (func) {
-          console.log("func", func);
-          
-          const values = value.replace(/\$(\w+)/g, (_, key) => {
+          const values = value.replace(/\$(\w+)/g, (_: any, key: any) => {
             return `${key}`;
           });
-          return safeEval(
+          return await safeEval(
             `return ${values}`,
             { ...variables, ...builtInFunctions },
-            { timeout: 1000 }
           );
         }
       }

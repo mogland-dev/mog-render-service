@@ -18,8 +18,8 @@ if _id is abc123, then it will return "yes" [[ #($_id === "abc123" ? "yes" : "no
 `;
 
 suite
-  .add("textMacro (Mog)", () => {
-    textMacro(text, record);
+  .add("textMacro (Mog)", async () => {
+    await textMacro(text, record);
   })
   .add("textMacro (Mix)", () => {
     mxTextMacro(text, record);
