@@ -21,7 +21,7 @@ suite
   .add("textMacro (Mog)", async () => {
     await textMacro(text, record);
   })
-  .add("textMacro (Mix)", () => {
+  .add("textMacro (Mix Space)", () => {
     mxTextMacro(text, record);
   })
   .on("cycle", (event: { target: any; }) => {
@@ -29,6 +29,6 @@ suite
   })
   .on("complete", function () {
     // @ts-ignore
-    console.log(`Fastest is ${this.filter("fastest").map("name")}. ${(this[0].hz / this[1].hz).toFixed(2)}x faster`);
+    console.log(`Speed test: ${this.filter("fastest").map("name").join(" > ")}, ${(this[0].hz / this[1].hz).toFixed(2)}x faster`);
   })
   .run({ async: true });
